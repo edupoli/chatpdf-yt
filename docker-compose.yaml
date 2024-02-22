@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: eduardo
+      POSTGRES_PASSWORD: bvRr6LI3FGQl
+      POSTGRES_DB: neondb
+    ports:
+      - "5432:5432"
+  
+  qdrant:
+    image: qdrant/qdrant
+    restart: always
+    ports:
+      - "6333:6333"

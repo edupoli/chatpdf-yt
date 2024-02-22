@@ -1,12 +1,13 @@
-import { auth } from "@clerk/nextjs";
+import { useSession } from "next-auth/react";
 import { db } from "./db";
 import { userSubscriptions } from "./db/schema";
 import { eq } from "drizzle-orm";
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24;
 export const checkSubscription = async () => {
-  const { userId } = await auth();
-  if (!userId) {
+  const { data: session, status } = useSession({ required: true });
+  const userId = session?.user?.email!;
+  if (status !== "authenticated") {
     return false;
   }
 
